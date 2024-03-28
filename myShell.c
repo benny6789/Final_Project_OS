@@ -6,19 +6,49 @@ int main()
     while (1)
     {
         getLocation();
+        int piping = 0;
+        getLocation();
         char *input = getInputFromUser();
-        puts(input);
-        char **arguments = splitArgument(input);
-        for (int i = 0; *(arguments + i) != NULL; i++)
-        {
-            puts(*(arguments+i));
-            puts(arguments[i]);
-        }
+        if (strcmp(input, "exit") == 0 || strncmp(input, "exit ", 5) == 0)//first condition checks if the input is exactly as the word exit
+        //the second condition checks for a specified number of chars, in this case 5 needed.
+        logout(input);
 
+
+        char **arguments = splitArgument(input);
+        if(strcmp(arguments[0], "exit") == 0){ //This covers the case where there is space in the begining of the string
+            free(arguments);
+            logout(input);
+}
+        int i=0;
+        while(*(arguments+i)!=NULL){
+            puts(*(arguments+i));
+            i++;
+        }
+        if (strcmp(input, "echo") == 0)
+            echo(arguments);
+        else if (strcmp(input, "cd") == 0)
+            cd(arguments);
+        else if (strcmp(input, "cp") == 0)
+            cp(arguments);
+        else if (strcmp(input, "delete") == 0)
+            delete (arguments);
+        else if (strcmp(input, "dir") == 0)
+            get_dir(arguments);
+        else if (piping)
+        {
+            // indexPipe
+            // arguments[indexPipe]=NULL;
+            // mypipe(arguments, arguments+indexPipe+1);
+            mypipe(arguments, arguments+/*indexPipe*/+1);
+            wait(NULL);
+        }
+        else
+        {
+            systemCall(arguments);
+            wait(NULL);
+        }
         free(arguments);
         free(input);
-
-        break;
     }
     return 0;
 }

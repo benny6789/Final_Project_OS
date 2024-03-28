@@ -89,28 +89,11 @@ char *myStrtok(char *str, char *delimeter){
 
 }
 
-// עליכם לממש את הפונקציה strtok כלומר שהפונקציה הנ"ל תבצע בדיוק אותו הדבר רק בלי השימוש בפונקציה strtok
 char **splitArgument(char *str)
 {
-    // cp file file
-    //[cp,file,file,NULL]
+   
     char *subStr;
-    // cp\0file file
-    // hello1\0hello2\0hello3\0hello4\0
-    // subStr = address of 'h'
-    // str = address of 'h'
-    // int i=0;
-    // int startIndex=0;
-    // while(*str+i!=' '){
-    // }
-    // *(str+i)='\0';
-    // // [str+startIndex,]
-    // startIndex=++i;
-    // while(*str+i!=' '){
-    // }
-    // *(str+i)='\0';
-    // // [str+startIndex,str+startIndex]
-    // startIndex=++i;
+    
 
     subStr = myStrtok(str, " ");
     int size = 2;
@@ -127,6 +110,70 @@ char **splitArgument(char *str)
     *(argumnts + (index + 1)) = NULL;
 
     return argumnts;
+}
+
+void logout(char *input){
+    free(input);
+    puts("logout");
+    exit(EXIT_SUCCESS);//EXIT_SUCCESS = 0
+}
+
+void echo(char **arguments)
+{
+
+    while (*(++arguments))
+        printf("%s ", *arguments);
+
+    puts("");
+}
+
+void cd(char **path)
+{
+    size_t len = strlen(path[1]);//The length of the path
+    if (strncmp(path[1], "\"", 1) != 0 && path[2] != NULL)
+        printf("-myShell: cd: too many arguments\n");
+
+    else if (chdir(path[1]) != 0)//If the chngeing path return a value that is not 0 then the change direcrory failed
+    //There is no such directory.
+        printf("-myShell: cd: %s: No such file or directory\n", path[1]);
+    else if ( path[1][len - 1] != '"') {//If the last character is not " then the directory is also invalid.
+        printf("-myShell: cd: %s: Invalid directory format\n", path[1]);    
+}
+
+
+void cp(char **arguments)
+{
+
+    if (arguments[1] ==  null || arguments[2] == null)//Those are the source file and destination file (should not be null)
+    {
+        puts("error");
+        return;
+    }
+    if (arguments[3] !=  null )
+    {
+        puts("error");
+        return;
+    }
+    
+    char ch;
+    FILE *src, *des;
+    if ((src = fopen(arguments[1], "r")) == NULL)//Open the source file
+    {
+        puts("error");
+        return;
+    }
+
+    if ((des = fopen(arguments[2], "w")) == NULL)//Open the destination file
+    {
+        puts("error");
+        fclose(src);
+        return;
+    }
+    while ((ch = fgetc(src)) != EOF)
+        fputc(ch, des);
+
+    fclose(src);
+    fclose(des);
 }
 
 // בכל שינוי יש לבצע קומיט מתאים העבודה מחייבת עבודה עם גיט.
