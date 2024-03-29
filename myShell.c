@@ -36,9 +36,7 @@ int main()
             get_dir(arguments);
         else if (piping)
         {
-            // indexPipe
-            // arguments[indexPipe]=NULL;
-            // mypipe(arguments, arguments+indexPipe+1);
+            
             mypipe(arguments, arguments+/*indexPipe*/+1);
             wait(NULL);
         }

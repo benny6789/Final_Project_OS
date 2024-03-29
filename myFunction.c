@@ -176,5 +176,40 @@ void cp(char **arguments)
     fclose(des);
 }
 
+void delete(char **path)
+{
+    if (unlink(path[1]) != 0)
+        printf("-myShell: delete: %s: No such file or directory\n", path[1]);
+    
+    if(path[2] != null)
+        printf("-myShell: delete: Too many arguments\n);//If the 3 character is not null that means there are more arguments.
+    
+}
+
+
+void mypipe(char **argv1,char ** argv2){
+
+    int fildes[2];
+    if (fork() == 0)
+    {
+        pipe(fildes);
+        if (fork() == 0)
+        {
+            /* first component of command line */
+            close(STDOUT_FILENO);
+            dup(fildes[1]);
+            close(fildes[1]);
+            close(fildes[0]);
+            execvp(argv1[0], argv1);
+        }
+        /* 2nd command component of command line */
+        close(STDIN_FILENO);
+        dup(fildes[0]);
+        close(fildes[0]);
+        close(fildes[1]);
+        /* standard input now comes from pipe */
+        execvp(argv2[0], argv2);
+    }
+}
 // בכל שינוי יש לבצע קומיט מתאים העבודה מחייבת עבודה עם גיט.
 // ניתן להוסיף פונקציות עזר לתוכנית רק לשים לב שלא מוסיפים את חתימת הפונקציה לקובץ הכותרות
