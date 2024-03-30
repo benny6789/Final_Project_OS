@@ -176,6 +176,35 @@ void cp(char **arguments)
     fclose(des);
 }
 
+void get_dir()
+{
+    DIR *dir;
+    struct dirent *ent;
+    if ((dir = opendir("./")) == NULL)
+    {
+        perror("");
+        return;
+    }
+    while ((ent = readdir(dir)) != NULL)
+        printf("%s ", ent->d_name);
+    puts("");
+}
+
+void systemCall(char **arguments)
+{
+    pid_t pid = fork();
+    if (pid == -1)
+    {
+        printf("fork err\n");
+        return;
+    }
+    if (pid == 0)
+    {
+        if (execvp(arguments[0], arguments) == -1)
+            exit(EXIT_FAILURE);
+    }
+}
+
 void delete(char **path)
 {
     if (unlink(path[1]) != 0)
