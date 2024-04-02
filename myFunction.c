@@ -224,21 +224,77 @@ void mypipe(char **argv1,char ** argv2){
         pipe(fildes);
         if (fork() == 0)
         {
-            /* first component of command line */
+        //first component of command line 
             close(STDOUT_FILENO);
             dup(fildes[1]);
             close(fildes[1]);
             close(fildes[0]);
             execvp(argv1[0], argv1);
         }
-        /* 2nd command component of command line */
+        //2nd command component of command line
         close(STDIN_FILENO);
         dup(fildes[0]);
         close(fildes[0]);
         close(fildes[1]);
-        /* standard input now comes from pipe */
+        //standard input now comes from pipe
         execvp(argv2[0], argv2);
     }
 }
+
+
+void move(char **args){
+    if (args[1] == null){
+        puts("missing file");In args[1] is supposed to file's path
+        return;
+    }
+    if(args[2] == null){
+        puts("missing destination path");//In args[2] is supposed to be the user's name as input path
+        return;
+    }
+    cp(args);//In order to copy the file
+     if (errno == 2) {//If the file does not exist
+            fprintf("Error: Source file '%s' does not exist.\n", args[1]);
+        } else if (errno == 13) {//If the user does not have permissions
+            fprintf("Error: Insufficient permissions to rename/move file.\n");
+        } else if (errno == 17) {//If the destination file already exists
+            fprintf("Error: Destination file '%s' already exists.\n", args[2]);
+        } else if (errno == 28) {If the file system is full
+            fprintf("Error: File system is full.\n");
+        } else if (errno == 22) {//An invalid value for cmd.
+            fprintf("Error: Invalid file names or incompatible file system.\n");
+        } else {
+            // For any other errors.
+            perror("move");
+        }
+   
+
+    printf("File moved successfully.\n");
+
+}
+
+
+void echoppend(char **args) {
+    // Check if arguments are valid
+    if (args[0] == NULL || args[1] == NULL) {
+        fprintf(stderr, "Usage: echoppend <string> <filename>\n");//stderr is a standard error stream in c.
+        return;
+    }
+
+    // We open the file or create a new one if it does not exist
+    FILE *file  = fopen(args[1], "a");//"a" stands for append mode.
+    if (file == NULL) {//Check if the file is not pointing to any valid object
+        fprintf(stderr, "Failed to open file: %s\n", args[1]);
+        return;
+    }
+
+    // We write the string into the file
+    fprintf(file, "%s\n", args[0]);
+
+    // Close the file
+    fclose(file);
+
+}
+
+
 // בכל שינוי יש לבצע קומיט מתאים העבודה מחייבת עבודה עם גיט.
 // ניתן להוסיף פונקציות עזר לתוכנית רק לשים לב שלא מוסיפים את חתימת הפונקציה לקובץ הכותרות
