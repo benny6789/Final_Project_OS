@@ -295,6 +295,57 @@ void echoppend(char **args) {
 
 }
 
+void echorite(char **args){
+    if(args[1] == null || args[2] == null){
+         fprintf(stderr, "Usage: echoread <filename> <path>\n");//stderr is a standard error stream in c.
+        return;
+
+    }
+    File *file = fopen(args[1],"r");// Read what is in the file
+    if(file == null){
+        // Print an error if opening the file failed
+        fprintf(stderr, "Failed to open file: %s\n", args[1]);
+        return;
+    }
+    if(file = fopen(args[1],"w") == null){
+        puts("error");
+        return;
+    }
+    int c;
+    while(c=fgetc(file) != EOF){//fgetc - gets the next character and advances the position of the indicator in the stream
+         fputc(c, file);//Fputc - writes the character in the file, and advances the position of the indicator in the stream
+    }
+     fclose(file);
+}
+
+void readfile(char **args){
+    if(args[1] == null){//This is where there is the path file so should not be null
+        puts("error");
+    }
+    if(args[2] != null){
+        puts("error");
+    }
+   
+    File *file;
+   
+
+    if(file = fopen(args[1],"r")== null){
+        puts("error");
+        return;
+    }
+
+
+    char c;
+    while(c=fgetc(file) != EOF){//to read the file
+         putchar(c);
+    }
+    fclose(file);
+
+}
+
+
+
+
 
 // בכל שינוי יש לבצע קומיט מתאים העבודה מחייבת עבודה עם גיט.
 // ניתן להוסיף פונקציות עזר לתוכנית רק לשים לב שלא מוסיפים את חתימת הפונקציה לקובץ הכותרות
