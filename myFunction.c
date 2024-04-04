@@ -385,10 +385,10 @@ void wordCount(char **args){
 
     }
     fclose(file);//close the file
-    if (strcmp(args[1],"w") == 0){
+    if (strcmp(args[1],"w") == 0){//If we want to count words
          printf("Number of words in the file: %d\n", countWords);
     }
-    else if (strcmp(args[1],"l") == 0){
+    else if (strcmp(args[1],"l") == 0){If we want to count rows
          printf("Number of words in the file: %d\n", countLines);
     }
     else{

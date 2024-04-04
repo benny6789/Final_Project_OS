@@ -63,7 +63,7 @@ int main()
 
 
                                         
-void welcome()
+void welcome()// The presentation we get
 {
     printf("**********************************************************| Welcome to myShell   \n");
     printf("                                                          | Version 2.4.3     \n");

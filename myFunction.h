@@ -30,6 +30,7 @@ char* getInputFromUser();
  * @warning The caller is responsible for freeing the memory allocated for
  *          the returned array and its elements using free().
  */
+//All functions
 char** splitArgument(char*);
 void getLocation();
 void logout(char* input);

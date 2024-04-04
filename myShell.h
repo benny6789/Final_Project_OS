@@ -6,4 +6,4 @@
 
 
 
-void welcome();
+void welcome();//The function from shell
