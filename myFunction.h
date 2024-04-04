@@ -38,3 +38,8 @@ void get_dir();
 void delete(char **arguments);
 void systemCall(char **arguments);
 void mypipe(char **,char ** );
+void move(char **args);
+void echoppend(char **args);
+void echorite(char **args);
+void readfile(char **args);
+void wordCount(char **args);
