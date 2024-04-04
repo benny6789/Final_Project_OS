@@ -4,7 +4,9 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <dirent.h>
+# include <sys/types.h>
 #include <sys/wait.h>
+#include <errno.h>
 #define SIZE_BUFF 256
 char* getInputFromUser();
 /**

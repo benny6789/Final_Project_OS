@@ -345,6 +345,29 @@ void readfile(char **args){
 
 
 void wordCount(char **args){
+    if(args[1] = null || args[2] == 2){
+        puts("error");
+        return;
+    }
+    if(args[3] != null){
+        puts("error");
+        return;
+    }
+
+    File *file;
+     if(file = fopen(args[2],"r")== null){//Check if the file was successfully opened.
+        puts("error");
+        return;
+    }
+
+    int countLines = 0, countWords = 0;
+    int c;//This is a variable that is used to read chars in the file.
+    inWord = 0;//This is in order to check if we are still in the word.
+
+    
+
+    fclose(file);
+
 
 }
 
