@@ -364,9 +364,39 @@ void wordCount(char **args){
     int c;//This is a variable that is used to read chars in the file.
     inWord = 0;//This is in order to check if we are still in the word.
 
-    
+    while(c=fgetc(file) != EOF){//In this we'll go over chars and count words and lines.
+        if(c = '\n'){
+            countLines++;
+        }
+        else if(c == ' '|| c == 't' || c == '\n' ){//In case where the char is space, tab or the end of a row
+            //we count  a new word.
+            if(inWord){
+                inWord = 0;
+                countWords+=1;
+            }
+            else if(!inWord){//If we are not in the word then the following:
+                inWord=1;
+            }
 
-    fclose(file);
+
+        }
+
+        
+
+    }
+    fclose(file);//close the file
+    if (strcmp(args[1],"w") == 0){
+         printf("Number of words in the file: %d\n", countWords);
+    }
+    else if (strcmp(args[1],"l") == 0){
+         printf("Number of words in the file: %d\n", countLines);
+    }
+    else{
+        printf("Invalid option \n");
+    }
+
+
+
 
 
 }

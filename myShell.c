@@ -29,6 +29,12 @@ int main()
             echo(arguments);
         else if (strcmp(input, "cd") == 0)
             cd(arguments);
+        else if (strcmp(input, "read") == 0)
+            readfile(arguments);
+        else if (strcmp(input, "mv") == 0)
+            move(arguments);
+        else if (strcmp(input, "wc") == 0)
+            wordCount(arguments);
         else if (strcmp(input, "cp") == 0)
             cp(arguments);
         else if (strcmp(input, "delete") == 0)
